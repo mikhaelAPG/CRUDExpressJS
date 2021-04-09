@@ -1,24 +1,19 @@
-const fs = require('fs');
 const express = require('express');
+
+const tourRouter = require('./routes/tourRoutes'); // kita implement nanti
+
 const app = express();
 
-const tours = JSON.parse(
-    fs.readFileSync(`${__dirname}/dev_data/data/tours-simple.json`)
-);
+// Middlewares
 
-app.get('/api/v1/tours', (req, res) => {
-    res.status(200).json({ 
-        status:'success!',
-        result: tours.length,
-        data: {
-            tours: tours
-        }
-    });
+app.use(express.json());
+
+app.use((req, res, next) => {
+    req.requestTime = new Date().toISOString();
+    next();
 });
 
-//express
-const port = 3000;
-app.listen(port, () => {
-    console.log('app running on port ${port} ....');
+// routes
+app.use('/api/v1/tours', tourRouter);
 
-});
+module.exports = app;
