@@ -1,10 +1,19 @@
+const fs = require('fs');
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res) => {
-    res
-    .status(200)
-    .json({ message: 'Hello from the server side!', app: 'app saya pribadi'});
+const tours = JSON.parse(
+    fs.readFileSync(`${__dirname}/dev_data/data/tours-simple.json`)
+);
+
+app.get('/api/v1/tours', (req, res) => {
+    res.status(200).json({ 
+        status:'success!',
+        result: tours.length,
+        data: {
+            tours: tours
+        }
+    });
 });
 
 //express
