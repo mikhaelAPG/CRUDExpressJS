@@ -11,7 +11,7 @@ router
 router
 .route('/:id')
 .get(tourController.getTour) // fungsinya nanti akan kita implement
-// .patch(tourController.updateTour) // fungsinya nanti akan kita implement
+.patch(tourController.updateTour) // fungsinya nanti akan kita implement
 // .delete(tourController.deleteTour); // fungsinya nanti akan kita implement
 
 module.exports = router;
